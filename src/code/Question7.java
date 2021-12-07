@@ -26,7 +26,6 @@ public class Question7 {
             }
         }
         int smallestDiff = Integer.MAX_VALUE;
-        int smallestIndex = -1;
         for (int i = smallest; i <= biggest; i++) {
             int diff = 0;
             for (int inp : input) {
@@ -51,7 +50,6 @@ public class Question7 {
             }
         }
         int smallestDiff = Integer.MAX_VALUE;
-        int smallestIndex = -1;
         for (int i = smallest; i <= biggest; i++) {
             int diff = 0;
             for (int inp : input) {
