@@ -10,8 +10,8 @@ public class Question6 {
         String[] input = Files.readAllLines(Path.of("src/input/Question6.txt")).toArray(new String[0]);
         String[] inp = input[0].split(",");
         ArrayList<Integer> inpNum = new ArrayList<>();
-        for (int i = 0; i < inp.length; i++) {
-            inpNum.add(Integer.parseInt(inp[i]));
+        for (String s : inp) {
+            inpNum.add(Integer.parseInt(s));
         }
         System.out.println("Part 1:");
         part1((ArrayList<Integer>) inpNum.clone());

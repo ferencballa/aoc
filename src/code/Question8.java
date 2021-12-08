@@ -3,7 +3,6 @@ package code;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 
 public class Question8 {
     public static void main(String[] args) throws IOException {
@@ -40,20 +39,28 @@ public class Question8 {
                 String[] splitNumS = numbersS[i].split("");
                 numbers[i] = new int[splitNumS.length];
                 for (int j = 0; j < splitNumS.length; j++) {
-                    if (splitNumS[j].equals("a")) {
-                        numbers[i][j] = 0;
-                    } else if (splitNumS[j].equals("b")) {
-                        numbers[i][j] = 1;
-                    } else if (splitNumS[j].equals("c")) {
-                        numbers[i][j] = 2;
-                    } else if (splitNumS[j].equals("d")) {
-                        numbers[i][j] = 3;
-                    } else if (splitNumS[j].equals("e")) {
-                        numbers[i][j] = 4;
-                    } else if (splitNumS[j].equals("f")) {
-                        numbers[i][j] = 5;
-                    } else if (splitNumS[j].equals("g")) {
-                        numbers[i][j] = 6;
+                    switch (splitNumS[j]) {
+                        case "a":
+                            numbers[i][j] = 0;
+                            break;
+                        case "b":
+                            numbers[i][j] = 1;
+                            break;
+                        case "c":
+                            numbers[i][j] = 2;
+                            break;
+                        case "d":
+                            numbers[i][j] = 3;
+                            break;
+                        case "e":
+                            numbers[i][j] = 4;
+                            break;
+                        case "f":
+                            numbers[i][j] = 5;
+                            break;
+                        case "g":
+                            numbers[i][j] = 6;
+                            break;
                     }
                 }
             }
@@ -119,6 +126,7 @@ public class Question8 {
                 for (int i = 0; i < 7; i++) {
                     if (possibleLetters[i][j]) {
                         hasPossibility = true;
+                        break;
                     }
                 }
                 if (!hasPossibility) {
@@ -161,6 +169,7 @@ public class Question8 {
                         for (int i = 0; i < 5; i++) {
                             if (num[i] == oneOptionOne) {
                                 oneOptionOneForOneInTwo = true;
+                                break;
                             }
                         }
                         if (oneOptionOneForOneInTwo) {
@@ -188,6 +197,7 @@ public class Question8 {
                         for (int i = 0; i < 5; i++) {
                             if (num[i] == fourOptionOne) {
                                 oneOptionOneForFourInTwo = true;
+                                break;
                             }
                         }
                         if (oneOptionOneForFourInTwo) {
@@ -216,7 +226,7 @@ public class Question8 {
                             letterPerPos[i] = "e";
                         } else if (j == 5) {
                             letterPerPos[i] = "f";
-                        } else if (j == 6) {
+                        } else {
                             letterPerPos[i] = "g";
                         }
                     }

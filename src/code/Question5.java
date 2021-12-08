@@ -96,7 +96,7 @@ public class Question5 {
                         sea[line.x1 + i][line.y1 + i]++;
                     } else if (line.x1 > line.x2 && line.y1 > line.y2) {
                         sea[line.x1 - i][line.y1 - i]++;
-                    } else if (line.x1 < line.x2 && line.y1 > line.y2) {
+                    } else if (line.x1 < line.x2) {
                         sea[line.x1 + i][line.y1 - i]++;
                     } else {
                         sea[line.x1 - i][line.y1 + i]++;
@@ -121,14 +121,6 @@ class Line {
     int y1;
     int x2;
     int y2;
-
-    public Line(int x1n, int y1n, int x2n, int y2n) {
-        x1 = x1n;
-        y1 = y1n;
-        x2 = x2n;
-        y2 = y2n;
-        normalise();
-    }
 
     public Line(String s) {
         String[] points = s.split(" -> ");

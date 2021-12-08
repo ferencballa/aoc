@@ -18,12 +18,16 @@ public class Question2 {
         int dep = 0;
         for (String inp : input) {
             String[] inputParts = inp.split(" ");
-            if (inputParts[0].equals("down")) {
-                dep += Integer.parseInt(inputParts[1]);
-            } else if (inputParts[0].equals("up")) {
-                dep -= Integer.parseInt(inputParts[1]);
-            } else if (inputParts[0].equals("forward")) {
-                hor += Integer.parseInt(inputParts[1]);
+            switch (inputParts[0]) {
+                case "down":
+                    dep += Integer.parseInt(inputParts[1]);
+                    break;
+                case "up":
+                    dep -= Integer.parseInt(inputParts[1]);
+                    break;
+                case "forward":
+                    hor += Integer.parseInt(inputParts[1]);
+                    break;
             }
         }
         System.out.println(hor * dep);
@@ -35,13 +39,17 @@ public class Question2 {
         int aim = 0;
         for (String inp : input) {
             String[] inputParts = inp.split(" ");
-            if (inputParts[0].equals("down")) {
-                aim += Integer.parseInt(inputParts[1]);
-            } else if (inputParts[0].equals("up")) {
-                aim -= Integer.parseInt(inputParts[1]);
-            } else if (inputParts[0].equals("forward")) {
-                hor += Integer.parseInt(inputParts[1]);
-                dep += Integer.parseInt(inputParts[1]) * aim;
+            switch (inputParts[0]) {
+                case "down":
+                    aim += Integer.parseInt(inputParts[1]);
+                    break;
+                case "up":
+                    aim -= Integer.parseInt(inputParts[1]);
+                    break;
+                case "forward":
+                    hor += Integer.parseInt(inputParts[1]);
+                    dep += Integer.parseInt(inputParts[1]) * aim;
+                    break;
             }
         }
         System.out.println(hor * dep);

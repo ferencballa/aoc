@@ -55,12 +55,11 @@ public class Question3 {
                     ones++;
                 }
             }
+            int finalOxygenIndex = oxygenIndex;
             if (ones > count/2 || ones == count/2)
             {
-                int finalOxygenIndex = oxygenIndex;
                 oxygen = oxygen.stream().filter(ox -> ox.charAt(finalOxygenIndex) == '1').collect(Collectors.toCollection(ArrayList::new));
             } else {
-                int finalOxygenIndex = oxygenIndex;
                 oxygen = oxygen.stream().filter(ox -> ox.charAt(finalOxygenIndex) == '0').collect(Collectors.toCollection(ArrayList::new));
             }
             oxygenIndex++;
