@@ -5,147 +5,88 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 
 public class Question10 {
     public static void main(String[] args) throws IOException {
         String[] input = Files.readAllLines(Path.of("src/input/Question10.txt")).toArray(new String[0]);
+        char[][] inputChars = new char[input.length][];
+        for (int i = 0; i < input.length; i++) {
+            inputChars[i] = input[i].toCharArray();
+        }
         System.out.println("Part 1:");
-        part1(input);
+        part1(inputChars);
         System.out.println("Part 2:");
-        part2(input);
+        part2(inputChars);
     }
 
-    private static void part1(String[] input) {
+    private static void part1(char[][] input) {
         int errorScore = 0;
-        for (String line : input) {
-            String[] characters = line.split("");
-            ArrayList<String> openChars = new ArrayList<>();
-            boolean illegalFound = false;
-            for (String character : characters) {
-                if (!illegalFound) {
-                    switch (character) {
-                        case "(":
-                            openChars.add("(");
-                            break;
-                        case "[":
-                            openChars.add("[");
-                            break;
-                        case "{":
-                            openChars.add("{");
-                            break;
-                        case "<":
-                            openChars.add("<");
-                            break;
-                        case ")":
-                            if (openChars.get(openChars.size()-1).equals("(")) {
-                                openChars.remove(openChars.size()-1);
-                            } else {
-                                errorScore += 3;
-                                illegalFound = true;
-                            }
-                            break;
-                        case "]":
-                            if (openChars.get(openChars.size()-1).equals("[")) {
-                                openChars.remove(openChars.size()-1);
-                            } else {
-                                errorScore += 57;
-                                illegalFound = true;
-                            }
-                            break;
-                        case "}":
-                            if (openChars.get(openChars.size()-1).equals("{")) {
-                                openChars.remove(openChars.size()-1);
-                            } else {
-                                errorScore += 1197;
-                                illegalFound = true;
-                            }
-                            break;
-                        case ">":
-                            if (openChars.get(openChars.size()-1).equals("<")) {
-                                openChars.remove(openChars.size()-1);
-                            } else {
-                                errorScore += 25137;
-                                illegalFound = true;
-                            }
-                            break;
-                    }
+        Map<Character, Integer> errorValues = Map.of(')', 3, ']', 57, '}', 1197, '>', 25137);
+        for (char[] characters : input) {
+            ArrayList<Character> openChars = new ArrayList<>();
+            line:
+            for (char character : characters) {
+                int spaceToOpenChar = 2;
+                switch (character) {
+                    case '(':
+                    case '[':
+                    case '{':
+                    case '<':
+                        openChars.add(character);
+                        break;
+                    case ')':
+                        spaceToOpenChar = 1;
+                    case ']':
+                    case '}':
+                    case '>':
+                        if (openChars.get(openChars.size() - 1).equals((char) (character - spaceToOpenChar))) {
+                            openChars.remove(openChars.size() - 1);
+                        } else {
+                            errorScore += errorValues.get(character);
+                            break line;
+                        }
                 }
             }
         }
         System.out.println(errorScore);
     }
 
-    private static void part2(String[] input) {
+    private static void part2(char[][] input) {
         ArrayList<Long> completeScores = new ArrayList<>();
-        for (String line : input) {
-            String[] characters = line.split("");
-            ArrayList<String> openChars = new ArrayList<>();
+        Map<Character, Integer> errorValues = Map.of('(', 1, '[', 2, '{', 3, '<', 4);
+        for (char[] characters : input) {
+            ArrayList<Character> openChars = new ArrayList<>();
             boolean illegalFound = false;
-            for (String character : characters) {
-                if (!illegalFound) {
-                    switch (character) {
-                        case "(":
-                            openChars.add("(");
-                            break;
-                        case "[":
-                            openChars.add("[");
-                            break;
-                        case "{":
-                            openChars.add("{");
-                            break;
-                        case "<":
-                            openChars.add("<");
-                            break;
-                        case ")":
-                            if (openChars.get(openChars.size()-1).equals("(")) {
-                                openChars.remove(openChars.size()-1);
-                            } else {
-                                illegalFound = true;
-                            }
-                            break;
-                        case "]":
-                            if (openChars.get(openChars.size()-1).equals("[")) {
-                                openChars.remove(openChars.size()-1);
-                            } else {
-                                illegalFound = true;
-                            }
-                            break;
-                        case "}":
-                            if (openChars.get(openChars.size()-1).equals("{")) {
-                                openChars.remove(openChars.size()-1);
-                            } else {
-                                illegalFound = true;
-                            }
-                            break;
-                        case ">":
-                            if (openChars.get(openChars.size()-1).equals("<")) {
-                                openChars.remove(openChars.size()-1);
-                            } else {
-                                illegalFound = true;
-                            }
-                            break;
-                    }
+            line:
+            for (char character : characters) {
+                int spaceToOpenChar = 2;
+                switch (character) {
+                    case '(':
+                    case '[':
+                    case '{':
+                    case '<':
+                        openChars.add(character);
+                        break;
+                    case ')':
+                        spaceToOpenChar = 1;
+                    case ']':
+                    case '}':
+                    case '>':
+                        if (openChars.get(openChars.size() - 1).equals((char) (character - spaceToOpenChar))) {
+                            openChars.remove(openChars.size() - 1);
+                        } else {
+                            illegalFound = true;
+                            break line;
+                        }
                 }
             }
             if (!illegalFound && openChars.size() > 0) {
                 Collections.reverse(openChars);
                 long score = 0;
-                for (String toClose : openChars) {
+                for (char toClose : openChars) {
                     score *= 5;
-                    switch (toClose) {
-                        case "(":
-                            score += 1;
-                            break;
-                        case "[":
-                            score += 2;
-                            break;
-                        case "{":
-                            score += 3;
-                            break;
-                        case "<":
-                            score += 4;
-                            break;
-                    }
+                    score += errorValues.get(toClose);
                 }
                 completeScores.add(score);
             }
