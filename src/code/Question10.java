@@ -22,32 +22,9 @@ public class Question10 {
 
     private static void part1(char[][] input) {
         int errorScore = 0;
-        Map<Character, Integer> errorValues = Map.of(')', 3, ']', 57, '}', 1197, '>', 25137);
         for (char[] characters : input) {
             ArrayList<Character> openChars = new ArrayList<>();
-            line:
-            for (char character : characters) {
-                int spaceToOpenChar = 2;
-                switch (character) {
-                    case '(':
-                    case '[':
-                    case '{':
-                    case '<':
-                        openChars.add(character);
-                        break;
-                    case ')':
-                        spaceToOpenChar = 1;
-                    case ']':
-                    case '}':
-                    case '>':
-                        if (openChars.get(openChars.size() - 1).equals((char) (character - spaceToOpenChar))) {
-                            openChars.remove(openChars.size() - 1);
-                        } else {
-                            errorScore += errorValues.get(character);
-                            break line;
-                        }
-                }
-            }
+            errorScore += checkLine(characters, openChars);
         }
         System.out.println(errorScore);
     }
@@ -57,30 +34,7 @@ public class Question10 {
         Map<Character, Integer> errorValues = Map.of('(', 1, '[', 2, '{', 3, '<', 4);
         for (char[] characters : input) {
             ArrayList<Character> openChars = new ArrayList<>();
-            boolean illegalFound = false;
-            line:
-            for (char character : characters) {
-                int spaceToOpenChar = 2;
-                switch (character) {
-                    case '(':
-                    case '[':
-                    case '{':
-                    case '<':
-                        openChars.add(character);
-                        break;
-                    case ')':
-                        spaceToOpenChar = 1;
-                    case ']':
-                    case '}':
-                    case '>':
-                        if (openChars.get(openChars.size() - 1).equals((char) (character - spaceToOpenChar))) {
-                            openChars.remove(openChars.size() - 1);
-                        } else {
-                            illegalFound = true;
-                            break line;
-                        }
-                }
-            }
+            boolean illegalFound = checkLine(characters, openChars) != 0;
             if (!illegalFound && openChars.size() > 0) {
                 Collections.reverse(openChars);
                 long score = 0;
@@ -93,5 +47,31 @@ public class Question10 {
         }
         Collections.sort(completeScores);
         System.out.println(completeScores.get((completeScores.size() - 1) / 2));
+    }
+
+    private static int checkLine(char[] characters, ArrayList<Character> openChars) {
+        Map<Character, Integer> errorValues = Map.of(')', 3, ']', 57, '}', 1197, '>', 25137);
+        for (char character : characters) {
+            int spaceToOpenChar = 2;
+            switch (character) {
+                case '(':
+                case '[':
+                case '{':
+                case '<':
+                    openChars.add(character);
+                    break;
+                case ')':
+                    spaceToOpenChar = 1;
+                case ']':
+                case '}':
+                case '>':
+                    if (openChars.get(openChars.size() - 1).equals((char) (character - spaceToOpenChar))) {
+                        openChars.remove(openChars.size() - 1);
+                    } else {
+                        return errorValues.get(character);
+                    }
+            }
+        }
+        return 0;
     }
 }
