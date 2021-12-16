@@ -98,6 +98,6 @@ public class Question16 {
                     return new Point2D.Double(index, subValues.get(0).equals(subValues.get(1)) ? 1 : 0);
             }
         }
-        return null;
+        return new Point2D.Double(-1, -1);
     }
 }
