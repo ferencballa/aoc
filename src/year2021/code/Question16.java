@@ -49,18 +49,13 @@ public class Question16 {
 
     private static Point2D.Double unpackLiteral(int index) {
         ArrayList<Integer> literalBits = new ArrayList<>();
-        while (input[index] == 1) {
+        do {
             literalBits.add(input[index + 1]);
             literalBits.add(input[index + 2]);
             literalBits.add(input[index + 3]);
             literalBits.add(input[index + 4]);
             index += 5;
-        }
-        literalBits.add(input[index + 1]);
-        literalBits.add(input[index + 2]);
-        literalBits.add(input[index + 3]);
-        literalBits.add(input[index + 4]);
-        index += 5;
+        } while (input[index - 5] == 1);
         long value = 0;
         int size = literalBits.size();
         for (int i = 0; i < size; i++) {
@@ -120,17 +115,9 @@ public class Question16 {
         }
         switch (type) {
             case 0:
-                long sum = 0;
-                for (Double subValue : subValues) {
-                    sum += subValue;
-                }
-                return new Point2D.Double(index, sum);
+                return new Point2D.Double(index, subValues.stream().reduce(0.0, Double::sum));
             case 1:
-                long product = 1;
-                for (Double subValue : subValues) {
-                    product *= subValue;
-                }
-                return new Point2D.Double(index, product);
+                return new Point2D.Double(index, subValues.stream().reduce(1.0, (a, b) -> a * b));
             case 2:
                 return new Point2D.Double(index, Collections.min(subValues));
             case 3:
