@@ -1,12 +1,13 @@
 package year2021.code;
+
+import helpers.Helper;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class Question6 {
     public static void main(String[] args) throws IOException {
-        String[] input = Files.readAllLines(Path.of("src/year2021/input/Question6.txt")).toArray(new String[0]);
+        String[] input = Helper.getInputForYearAndTask(2021, 6);
         String[] inp = input[0].split(",");
         ArrayList<Integer> inpNum = new ArrayList<>();
         for (String s : inp) {

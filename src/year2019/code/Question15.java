@@ -1,11 +1,12 @@
 package year2019.code;
+
+import helpers.Helper;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 public class Question15 {
     public static void main(String[] args) throws IOException {
-        String[] input = Files.readAllLines(Path.of("src/year2019/input/Question15.txt")).toArray(new String[0]);
+        String[] input = Helper.getInputForYearAndTask(2019, 15);
         System.out.println("Part 1:");
         part1(input);
         System.out.println("Part 2:");

@@ -13,7 +13,7 @@ public class Question16 {
     private static int[] input;
 
     public static void main(String[] args) throws IOException {
-        String[] in = Files.readAllLines(Path.of("src/year2021/input/Question16.txt")).toArray(new String[0]);
+        String[] in = Helper.getInputForYearAndTask(2021, 16);
         String binary = new BigInteger(in[0], 16).toString(2);
         input = Helper.StringArrayToInt((new String(new char[in[0].length() * 4 - binary.length()]).replace('\0', '0') + binary).split(""));
         System.out.println("Part 1:");

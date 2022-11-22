@@ -1,8 +1,9 @@
 package year2019.code;
+
+import helpers.Helper;
+
 import java.awt.*;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,7 @@ public class Question6 {
     private static final HashMap<String, ArrayList<String>> children = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
-        String[] input = Files.readAllLines(Path.of("src/year2019/input/Question6.txt")).toArray(new String[0]);
+        String[] input = Helper.getInputForYearAndTask(2019, 6);
         for (String inp : input) {
             String[] objs = inp.split("\\)");
             if (children.containsKey(objs[0])) {

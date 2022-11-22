@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Question4 {
     public static void main(String[] args) throws IOException {
-        String[] input = Files.readAllLines(Path.of("src/year2021/input/Question4.txt")).toArray(new String[0]);
+        String[] input = Helper.getInputForYearAndTask(2021, 4);
         System.out.println("Part 1:");
         part1(input);
         System.out.println("Part 2:");

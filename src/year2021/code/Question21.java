@@ -1,7 +1,8 @@
 package year2021.code;
+
+import helpers.Helper;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.HashMap;
 
 public class Question21 {
@@ -9,7 +10,7 @@ public class Question21 {
     private static long totalChecks = 444356092776315L + 341960390180808L;
 
     public static void main(String[] args) throws IOException {
-        String[] input = Files.readAllLines(Path.of("src/year2021/input/Question21.txt")).toArray(new String[0]);
+        String[] input = Helper.getInputForYearAndTask(2021, 21);
         System.out.println("Part 1:");
         part1(input);
         System.out.println("Part 2:");

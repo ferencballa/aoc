@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Question7 {
     public static void main(String[] args) throws IOException {
-        String[] input = Files.readAllLines(Path.of("src/year2019/input/Question7.txt")).toArray(new String[0]);
+        String[] input = Helper.getInputForYearAndTask(2019, 7);
         System.out.println("Part 1:");
         part1(input);
         System.out.println("Part 2:");

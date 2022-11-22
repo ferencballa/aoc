@@ -10,7 +10,7 @@ import java.util.HashSet;
 
 public class Question15 {
     public static void main(String[] args) throws IOException {
-        String[] input = Files.readAllLines(Path.of("src/year2021/input/Question15.txt")).toArray(new String[0]);
+        String[] input = Helper.getInputForYearAndTask(2021, 15);
         int[][] distances = new int[input.length][input[0].length()];
         for (int i = 0; i < input.length; i++) {
             distances[i] = Helper.StringArrayToInt(input[i].split(""));

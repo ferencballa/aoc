@@ -7,7 +7,7 @@ import java.nio.file.Path;
 
 public class Question7 {
     public static void main(String[] args) throws IOException {
-        String[] inp = Files.readAllLines(Path.of("src/year2021/input/Question7.txt")).toArray(new String[0]);
+        String[] inp = Helper.getInputForYearAndTask(2021, 7);
         int[] input = Helper.StringArrayToInt(inp[0].split(","));
         System.out.println("Part 1:");
         part1(input);
