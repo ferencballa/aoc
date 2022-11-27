@@ -41,6 +41,7 @@ public class Helper {
                 System.out.println("Get didn't return 200");
                 throw new RuntimeException();
             }
+            lines = Files.readAllLines(Path.of("src/year" + year + "/input/Question" + day + ".txt")).toArray(new String[0]);
         }
         return lines;
     }
