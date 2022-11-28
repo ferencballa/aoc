@@ -64,7 +64,7 @@ public class Question12 {
             positions[p][2] = Integer.parseInt(zWithEnd.substring(0, zWithEnd.length()-1));
         }
         int[][] velocities = new int[4][3];
-        int attemptSize = 10000000;
+        int attemptSize = 10000000; //value is present just in case an error occurs which would cause an infinite loop
         HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, Integer>>>>>>>> xMap = new HashMap<>();
         HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, Integer>>>>>>>> yMap = new HashMap<>();
         HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, HashMap<Integer, Integer>>>>>>>> zMap = new HashMap<>();
@@ -123,7 +123,6 @@ public class Question12 {
                     xCycle = step - xVisited;
                     xStartCycle = xVisited;
                     if (yRepeated && zRepeated) {
-                        System.out.println("Attempt broken at: " + step);
                         break attempt;
                     }
                 }
@@ -245,13 +244,50 @@ public class Question12 {
                 }
             }
         }
-        System.out.println(xCycle);
-        System.out.println(yCycle);
-        System.out.println(zCycle);
-        System.out.println(xStartCycle);
-        System.out.println(yStartCycle);
-        System.out.println(zStartCycle);
-        //factorize xCycle, yCycle and zCycle. Remove factors overlapping between differeny factorization sets. Multiply together all remaining factors, add value to highest cycle start, and voila
-        //This last part is doable by hand and with the help of prime factorization calculators online (instead of writing a factorization algorithm and doing it mechanically)
+        HashMap<Integer, Integer> xFactors = factorize(xCycle);
+        HashMap<Integer, Integer> yFactors = factorize(yCycle);
+        HashMap<Integer, Integer> zFactors = factorize(zCycle);
+        HashMap<Integer, Integer> mostUniqueFactors = xFactors;
+        for (Integer factor : yFactors.keySet()) {
+            Integer alreadyPresentFactorAmount = mostUniqueFactors.get(factor);
+            if (alreadyPresentFactorAmount == null) {
+                mostUniqueFactors.put(factor, yFactors.get(factor));
+            } else {
+                Integer newFactorAmount = yFactors.get(factor);
+                if (newFactorAmount > alreadyPresentFactorAmount) {
+                    mostUniqueFactors.put(factor, newFactorAmount);
+                }
+            }
+        }
+        for (Integer factor : zFactors.keySet()) {
+            Integer alreadyPresentFactorAmount = mostUniqueFactors.get(factor);
+            if (alreadyPresentFactorAmount == null) {
+                mostUniqueFactors.put(factor, zFactors.get(factor));
+            } else {
+                Integer newFactorAmount = zFactors.get(factor);
+                if (newFactorAmount > alreadyPresentFactorAmount) {
+                    mostUniqueFactors.put(factor, newFactorAmount);
+                }
+            }
+        }
+        long cycle = 1;
+        for (Integer factor : mostUniqueFactors.keySet()) {
+            cycle *= Math.pow(factor, mostUniqueFactors.get(factor));
+        }
+        System.out.println(Math.max(Math.max(xStartCycle, yStartCycle), zStartCycle) + cycle);
+    }
+
+    private static HashMap<Integer, Integer> factorize(int value) {
+        HashMap<Integer, Integer> factors = new HashMap<>();
+        for (int i = 2; i <= value; i++) {
+            while (value % i == 0) {
+                value = value/i;
+                if (factors.get(i) == null) {
+                    factors.put(i, 0);
+                }
+                factors.put(i, factors.get(i) + 1);
+            }
+        }
+        return factors;
     }
 }
