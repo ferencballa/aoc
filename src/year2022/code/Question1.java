@@ -39,6 +39,24 @@ class Q1Part1 {
             }
         }
         System.out.println(mostV);
+        System.out.println("1 line function:");
+        singleLineSolution(input);
+    }
+
+    private static void singleLineSolution(String[] input) {
+        System.out.println(Arrays.stream(
+                        Arrays.stream(input)
+                                .map(value -> value.equals("") ? " " : value)
+                                .collect(Collectors.joining(","))
+                                .split(" "))
+                .map(values ->
+                        Arrays.stream(values.split(","))
+                                .filter(val -> !val.equals(""))
+                                .map(Integer::parseInt)
+                                .reduce(0, Integer::sum))
+                .sorted()
+                .reduce((first, second) -> second)
+                .orElse(null));
     }
 }
 
