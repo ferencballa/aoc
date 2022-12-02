@@ -3,6 +3,7 @@ package year2022.code;
 import helpers.Helper;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Question2 {
     public static void main(String[] args) throws IOException {
@@ -55,6 +56,23 @@ class Q2Part1 {
             }
         }
         System.out.println(total);
+        System.out.println("1 line function:");
+        singleLineSolution(input);
+    }
+
+    private static void singleLineSolution(String[] input) {
+        System.out.println(
+                Arrays.stream(input)
+                    .map(line -> line.split(" ")[1].equals("X") && line.split(" ")[0].equals("A") ? 4 :
+                            line.split(" ")[1].equals("X") && line.split(" ")[0].equals("B") ? 1 :
+                            line.split(" ")[1].equals("X") && line.split(" ")[0].equals("C") ? 7 :
+                            line.split(" ")[1].equals("Y") && line.split(" ")[0].equals("A") ? 8 :
+                            line.split(" ")[1].equals("Y") && line.split(" ")[0].equals("B") ? 5 :
+                            line.split(" ")[1].equals("Y") && line.split(" ")[0].equals("C") ? 2 :
+                            line.split(" ")[1].equals("Z") && line.split(" ")[0].equals("A") ? 3 :
+                            line.split(" ")[1].equals("Z") && line.split(" ")[0].equals("B") ? 9 : 6)
+                    .reduce(0, Integer::sum)
+        );
     }
 }
 
@@ -107,5 +125,22 @@ class Q2Part2 {
             }
         }
         System.out.println(total);
+        System.out.println("1 line function:");
+        singleLineSolution(input);
+    }
+
+    private static void singleLineSolution(String[] input) {
+        System.out.println(
+                Arrays.stream(input)
+                    .map(line -> line.split(" ")[1].equals("X") && line.split(" ")[0].equals("A") ? 3 :
+                        line.split(" ")[1].equals("X") && line.split(" ")[0].equals("B") ? 1 :
+                        line.split(" ")[1].equals("X") && line.split(" ")[0].equals("C") ? 2 :
+                        line.split(" ")[1].equals("Y") && line.split(" ")[0].equals("A") ? 4 :
+                        line.split(" ")[1].equals("Y") && line.split(" ")[0].equals("B") ? 5 :
+                        line.split(" ")[1].equals("Y") && line.split(" ")[0].equals("C") ? 6 :
+                        line.split(" ")[1].equals("Z") && line.split(" ")[0].equals("A") ? 8 :
+                        line.split(" ")[1].equals("Z") && line.split(" ")[0].equals("B") ? 9 : 7)
+                    .reduce(0, Integer::sum)
+        );
     }
 }
