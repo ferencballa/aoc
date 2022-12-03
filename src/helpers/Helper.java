@@ -20,7 +20,8 @@ public class Helper {
     }
 
     public static String[] getInputForYearAndTask(int year, int day) throws IOException {
-        String[] lines = Files.readAllLines(Path.of("src/year" + year + "/input/Question" + day + ".txt")).toArray(new String[0]);
+        String dayString = day < 10 ? "0" + day : "" + day;
+        String[] lines = Files.readAllLines(Path.of("src/year" + year + "/input/Question" + dayString + ".txt")).toArray(new String[0]);
         if (lines.length == 0) {
             URL url = new URL("https://adventofcode.com/" + year + "/day/" + day + "/input");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -32,7 +33,7 @@ public class Helper {
             if (status == 200) {
                 streamReader = new InputStreamReader(con.getInputStream());
                 ArrayList<String> response = readStream(streamReader);
-                FileWriter myWriter = new FileWriter("src/year" + year + "/input/Question" + day + ".txt");
+                FileWriter myWriter = new FileWriter("src/year" + year + "/input/Question" + dayString + ".txt");
                 myWriter.write(StringUtils.join(response, "\r\n"));
                 myWriter.close();
             } else {
@@ -41,7 +42,7 @@ public class Helper {
                 System.out.println("Get didn't return 200");
                 throw new RuntimeException();
             }
-            lines = Files.readAllLines(Path.of("src/year" + year + "/input/Question" + day + ".txt")).toArray(new String[0]);
+            lines = Files.readAllLines(Path.of("src/year" + year + "/input/Question" + dayString + ".txt")).toArray(new String[0]);
         }
         return lines;
     }
