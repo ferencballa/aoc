@@ -3,7 +3,11 @@ package year2022.code;
 import helpers.Helper;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Question03 {
     public static void main(String[] args) throws IOException {
@@ -53,6 +57,19 @@ class Q03Part1 {
             }
         }
         System.out.println(totalPrios);
+        System.out.println("1 line function:");
+        singleLineSolution(input);
+    }
+
+    private static void singleLineSolution(String[] input) {
+        System.out.println(Arrays.stream(input).map(line ->
+                        Collections.max(Arrays.stream(line.substring(0, line.length() / 2).split("")).flatMap(ch1 ->
+                                        Arrays.stream(line.substring(line.length() / 2, line.length()).split("")).map(ch2 ->
+                                                ch1.equals(ch2) ? (int) ch1.charAt(0) : 0
+                                                )
+                                ).collect(Collectors.toList()))
+                )
+                .map(n -> n >= 97 ? n-96 : n-38).reduce(0, Integer::sum));
     }
 }
 
@@ -100,5 +117,18 @@ class Q03Part2 {
             }
         }
         System.out.println(totalPrios);
+        System.out.println("1 line function:");
+        singleLineSolution(input);
+    }
+
+    private static void singleLineSolution(String[] input) {
+        System.out.println(IntStream.range(0, input.length / 3).map(i ->
+                Collections.max(Arrays.stream(input[3 * i].split("")).flatMap(ch1 ->
+                                Arrays.stream(input[3 * i + 1].split("")).flatMap(ch2 ->
+                                        Arrays.stream(input[3 * i + 2].split("")).map(ch3 ->
+                                                ch1.equals(ch2) && ch1.equals(ch3) ? (int) ch1.charAt(0) : 0
+                                        ))).collect(Collectors.toList()))
+                )
+                .map(n -> n >= 97 ? n-96 : n-38).reduce(0, Integer::sum));
     }
 }

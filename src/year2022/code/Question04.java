@@ -3,6 +3,8 @@ package year2022.code;
 import helpers.Helper;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Question04 {
     public static void main(String[] args) throws IOException {
@@ -37,6 +39,23 @@ class Q04Part1 {
             }
         }
         System.out.println(overlap);
+        System.out.println("1 line function:");
+        singleLineSolution(input);
+    }
+
+    private static void singleLineSolution(String[] input) {
+        System.out.println(Arrays.stream(input).map(line ->
+                (
+                        (Integer.parseInt(Arrays.stream(line.split(",")).flatMap(linePart -> Arrays.stream(linePart.split("-"))).collect(Collectors.toList()).get(0)) <=
+                        Integer.parseInt(Arrays.stream(line.split(",")).flatMap(linePart -> Arrays.stream(linePart.split("-"))).collect(Collectors.toList()).get(2)) &&
+                        Integer.parseInt(Arrays.stream(line.split(",")).flatMap(linePart -> Arrays.stream(linePart.split("-"))).collect(Collectors.toList()).get(1)) >=
+                        Integer.parseInt(Arrays.stream(line.split(",")).flatMap(linePart -> Arrays.stream(linePart.split("-"))).collect(Collectors.toList()).get(3))) ||
+                        (Integer.parseInt(Arrays.stream(line.split(",")).flatMap(linePart -> Arrays.stream(linePart.split("-"))).collect(Collectors.toList()).get(2)) <=
+                        Integer.parseInt(Arrays.stream(line.split(",")).flatMap(linePart -> Arrays.stream(linePart.split("-"))).collect(Collectors.toList()).get(0)) &&
+                        Integer.parseInt(Arrays.stream(line.split(",")).flatMap(linePart -> Arrays.stream(linePart.split("-"))).collect(Collectors.toList()).get(3)) >=
+                        Integer.parseInt(Arrays.stream(line.split(",")).flatMap(linePart -> Arrays.stream(linePart.split("-"))).collect(Collectors.toList()).get(1)))
+                ) ? 1 : 0
+        ).reduce(0, Integer::sum));
     }
 }
 
@@ -62,5 +81,18 @@ class Q04Part2 {
             }
         }
         System.out.println(overlap);
+        System.out.println("1 line function:");
+        singleLineSolution(input);
+    }
+
+    private static void singleLineSolution(String[] input) {
+        System.out.println(Arrays.stream(input).map(line ->
+                (
+                        Integer.parseInt(Arrays.stream(line.split(",")).flatMap(linePart -> Arrays.stream(linePart.split("-"))).collect(Collectors.toList()).get(1)) <
+                        Integer.parseInt(Arrays.stream(line.split(",")).flatMap(linePart -> Arrays.stream(linePart.split("-"))).collect(Collectors.toList()).get(2)) ||
+                        Integer.parseInt(Arrays.stream(line.split(",")).flatMap(linePart -> Arrays.stream(linePart.split("-"))).collect(Collectors.toList()).get(0)) >
+                        Integer.parseInt(Arrays.stream(line.split(",")).flatMap(linePart -> Arrays.stream(linePart.split("-"))).collect(Collectors.toList()).get(3))
+                ) ? 0 : 1
+        ).reduce(0, Integer::sum));
     }
 }
