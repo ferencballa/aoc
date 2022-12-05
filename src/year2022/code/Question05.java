@@ -4,7 +4,6 @@ import helpers.Helper;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Question05 {
     public static void main(String[] args) throws IOException {
@@ -25,34 +24,24 @@ class Q05Part1 {
     static void run() throws IOException {
         System.out.println("Part 1:");
         String[] input = Question05.getInput();
-        ArrayList<String>[] stacks = new ArrayList[9];
-        String[] stack0 = {"B", "S", "J", "Z", "V", "D", "G"};
-        ArrayList<String> arrList0 = new ArrayList<>(Arrays.asList(stack0));
-        stacks[0] = arrList0;
-        String[] stack1 = {"P", "V", "G", "M", "S", "Z"};
-        ArrayList<String> arrList1 = new ArrayList<>(Arrays.asList(stack1));
-        stacks[1] = arrList1;
-        String[] stack2 = {"F", "Q", "T", "W", "S", "B", "L", "C"};
-        ArrayList<String> arrList2 = new ArrayList<>(Arrays.asList(stack2));
-        stacks[2] = arrList2;
-        String[] stack3 = {"Q", "V", "R", "M", "W", "G", "J", "H"};
-        ArrayList<String> arrList3 = new ArrayList<>(Arrays.asList(stack3));
-        stacks[3] = arrList3;
-        String[] stack4 = {"D", "M", "F", "N", "S", "L", "C"};
-        ArrayList<String> arrList4 = new ArrayList<>(Arrays.asList(stack4));
-        stacks[4] = arrList4;
-        String[] stack5 = {"D", "C", "G", "R"};
-        ArrayList<String> arrList5 = new ArrayList<>(Arrays.asList(stack5));
-        stacks[5] = arrList5;
-        String[] stack6 = {"Q", "S", "D", "J", "R", "T", "G", "H"};
-        ArrayList<String> arrList6 = new ArrayList<>(Arrays.asList(stack6));
-        stacks[6] = arrList6;
-        String[] stack7 = {"V", "F", "P"};
-        ArrayList<String> arrList7 = new ArrayList<>(Arrays.asList(stack7));
-        stacks[7] = arrList7;
-        String[] stack8 = {"J", "T", "S", "R", "D"};
-        ArrayList<String> arrList8 = new ArrayList<>(Arrays.asList(stack8));
-        stacks[8] = arrList8;
+        int l = 0;
+        while (input[l].charAt(1) != '1') {
+            l++;
+        }
+        int numOfCols = (int) Math.ceil((double) input[l].length() / 4);
+        ArrayList<String>[] stacks = new ArrayList[numOfCols];
+        for (int col = 0; col < numOfCols; col++) {
+            stacks[col] = new ArrayList<>();
+        }
+        for (int row = 0; row < l; row++) {
+            for (int pointInCol = 0; pointInCol < numOfCols; pointInCol++) {
+                if (pointInCol < Math.ceil((double) input[row].length() / 4)) {
+                    if (input[row].charAt(pointInCol * 4 + 1) != ' ') {
+                        stacks[pointInCol].add(input[row].substring(pointInCol * 4 + 1, pointInCol * 4 + 2));
+                    }
+                }
+            }
+        }
         for (int i = 10; i < input.length; i++) {
             String[] parts = input[i].split(" ");
             int amount = Integer.parseInt(parts[1]);
@@ -83,34 +72,24 @@ class Q05Part2 {
     static void run() throws IOException {
         System.out.println("Part 2:");
         String[] input = Question05.getInput();
-        ArrayList<String>[] stacks = new ArrayList[9];
-        String[] stack0 = {"B", "S", "J", "Z", "V", "D", "G"};
-        ArrayList<String> arrList0 = new ArrayList<>(Arrays.asList(stack0));
-        stacks[0] = arrList0;
-        String[] stack1 = {"P", "V", "G", "M", "S", "Z"};
-        ArrayList<String> arrList1 = new ArrayList<>(Arrays.asList(stack1));
-        stacks[1] = arrList1;
-        String[] stack2 = {"F", "Q", "T", "W", "S", "B", "L", "C"};
-        ArrayList<String> arrList2 = new ArrayList<>(Arrays.asList(stack2));
-        stacks[2] = arrList2;
-        String[] stack3 = {"Q", "V", "R", "M", "W", "G", "J", "H"};
-        ArrayList<String> arrList3 = new ArrayList<>(Arrays.asList(stack3));
-        stacks[3] = arrList3;
-        String[] stack4 = {"D", "M", "F", "N", "S", "L", "C"};
-        ArrayList<String> arrList4 = new ArrayList<>(Arrays.asList(stack4));
-        stacks[4] = arrList4;
-        String[] stack5 = {"D", "C", "G", "R"};
-        ArrayList<String> arrList5 = new ArrayList<>(Arrays.asList(stack5));
-        stacks[5] = arrList5;
-        String[] stack6 = {"Q", "S", "D", "J", "R", "T", "G", "H"};
-        ArrayList<String> arrList6 = new ArrayList<>(Arrays.asList(stack6));
-        stacks[6] = arrList6;
-        String[] stack7 = {"V", "F", "P"};
-        ArrayList<String> arrList7 = new ArrayList<>(Arrays.asList(stack7));
-        stacks[7] = arrList7;
-        String[] stack8 = {"J", "T", "S", "R", "D"};
-        ArrayList<String> arrList8 = new ArrayList<>(Arrays.asList(stack8));
-        stacks[8] = arrList8;
+        int l = 0;
+        while (input[l].charAt(1) != '1') {
+            l++;
+        }
+        int numOfCols = (int) Math.ceil((double) input[l].length() / 4);
+        ArrayList<String>[] stacks = new ArrayList[numOfCols];
+        for (int col = 0; col < numOfCols; col++) {
+            stacks[col] = new ArrayList<>();
+        }
+        for (int row = 0; row < l; row++) {
+            for (int pointInCol = 0; pointInCol < numOfCols; pointInCol++) {
+                if (pointInCol < Math.ceil((double) input[row].length() / 4)) {
+                    if (input[row].charAt(pointInCol * 4 + 1) != ' ') {
+                        stacks[pointInCol].add(input[row].substring(pointInCol * 4 + 1, pointInCol * 4 + 2));
+                    }
+                }
+            }
+        }
         for (int i = 10; i < input.length; i++) {
             String[] parts = input[i].split(" ");
             int amount = Integer.parseInt(parts[1]);
