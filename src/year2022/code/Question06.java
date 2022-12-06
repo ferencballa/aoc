@@ -3,15 +3,42 @@ package year2022.code;
 import helpers.Helper;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Question06 {
     public static void main(String[] args) throws IOException {
         Q06Part1.run();
+        Question06.runWithSize(4);
         Q06Part2.run();
+        Question06.runWithSize(14);
     }
 
     static String[] getInput() throws IOException {
         return Helper.getInputForYearAndTask(2022, 6);
+    }
+
+    static void runWithSize(int m) throws IOException {
+        System.out.println("Running for m: " + m);
+        String[] input = Question06.getInput();
+        int[] lastIndex = new int[26];
+        Arrays.fill(lastIndex, -1 * m);
+        int notDuplicate = 0;
+        String inp = input[0];
+        int i = 0;
+        boolean rangeFound = false;
+        while (!rangeFound) {
+            if (i - lastIndex[inp.charAt(i) - 97] > notDuplicate) {
+                notDuplicate++;
+            } else {
+                notDuplicate = i - lastIndex[inp.charAt(i) - 97];
+            }
+            lastIndex[inp.charAt(i) - 97] = i;
+            if (notDuplicate == m) {
+                rangeFound = true;
+            }
+            i++;
+        }
+        System.out.println(i);
     }
 }
 
