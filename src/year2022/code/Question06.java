@@ -4,13 +4,20 @@ import helpers.Helper;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Question06 {
     public static void main(String[] args) throws IOException {
         Q06Part1.run();
-        Question06.runWithSize(4);
+        runWithSize(4);
+        System.out.println("Single line solution for m: " + 4);
+        singleLineSolution(getInput(), 4);
         Q06Part2.run();
-        Question06.runWithSize(14);
+        runWithSize(14);
+        System.out.println("Single line solution for m: " + 14);
+        singleLineSolution(getInput(), 14);
     }
 
     static String[] getInput() throws IOException {
@@ -39,6 +46,15 @@ public class Question06 {
             i++;
         }
         System.out.println(i);
+    }
+
+    private static void singleLineSolution(String[] input, int m) {
+        System.out.println(Collections.min(IntStream.range(0, input[0].length() - m).map(i ->
+                IntStream.range(i, i + m).mapToObj(index1 ->
+                        IntStream.range(index1 + 1, i + m).mapToObj(index2 ->
+                                input[0].charAt(index1) != input[0].charAt(index2)
+                        ).reduce(true, Boolean::logicalAnd)).reduce(true, Boolean::logicalAnd) ?
+                        i + m : Integer.MAX_VALUE).boxed().collect(Collectors.toList())));
     }
 }
 
