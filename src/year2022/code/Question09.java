@@ -5,15 +5,52 @@ import helpers.Helper;
 import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Question09 {
     public static void main(String[] args) throws IOException {
         Q09Part1.run();
+        runForLength(2);
         Q09Part2.run();
+        runForLength(10);
     }
 
     static String[] getInput() throws IOException {
         return Helper.getInputForYearAndTask(2022, 9);
+    }
+
+    private static void runForLength(int l) throws IOException {
+        String[] input = getInput();
+        Point[] knots = new Point[l];
+        for (int i = 0; i < l; i++)
+            knots[i] = new Point(0, 0);
+        HashSet<Point> set = new HashSet<>();
+        set.add(new Point(0, 0));
+        for (String s : input)
+            for (int r = 0; r < Integer.parseInt(s.split(" ")[1]); r++) {
+                switch (s.split(" ")[0]) {
+                    case "U": knots[0].y--; break;
+                    case "D": knots[0].y++; break;
+                    case "L": knots[0].x--; break;
+                    case "R": knots[0].x++; break;
+                }
+                for (int k = 0; k < l-1; k++)
+                    if (knots[k].y == knots[k + 1].y + 2) {
+                        knots[k + 1].y++;
+                        knots[k + 1].x += Integer.compare(knots[k].x, knots[k + 1].x);
+                    } else if (knots[k].y == knots[k + 1].y - 2) {
+                        knots[k + 1].y--;
+                        knots[k + 1].x += Integer.compare(knots[k].x, knots[k + 1].x);
+                    } else if (knots[k].x == knots[k + 1].x + 2) {
+                        knots[k + 1].x++;
+                        knots[k + 1].y += Integer.compare(knots[k].y, knots[k + 1].y);
+                    } else if (knots[k].x == knots[k + 1].x - 2) {
+                        knots[k + 1].x--;
+                        knots[k + 1].y += Integer.compare(knots[k].y, knots[k + 1].y);
+                    }
+                set.add(new Point(knots[l - 1].x, knots[l - 1].y));
+            }
+        System.out.println(set.size());
     }
 }
 
