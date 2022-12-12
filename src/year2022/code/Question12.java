@@ -125,7 +125,6 @@ class Q12Part2 {
             }
         }
         int shortestRoute = Integer.MAX_VALUE;
-        int testCount = 0;
         for (Point startP : startCoors) {
             CustomPoint[][] grid = new CustomPoint[startGrid.length][];
             for (int i = 0; i < startGrid.length; i++) {
@@ -134,7 +133,6 @@ class Q12Part2 {
                     grid[i][j] = new CustomPoint(startGrid[i][j].x, startGrid[i][j].y, startGrid[i][j].height);
                 }
             }
-            testCount++;
             int startX = startP.x;
             int startY = startP.y;
             ArrayList<Point> toExplorePoints = new ArrayList<>();
