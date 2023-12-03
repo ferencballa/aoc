@@ -39,32 +39,11 @@ class Q03Part1 {
                         i++;
                     }
                     boolean isPartNumber = false;
-                    if (lineNumber != 0) {
-                        if (startOfNumber != 0) {
-                            isPartNumber = isPartNumber || isPartNumber(input, startOfNumber - 1, lineNumber - 1);
-                        }
-                        for (int z = startOfNumber; z < i; z++) {
-                            isPartNumber = isPartNumber || isPartNumber(input, z, lineNumber - 1);
-                        }
-                        if (i < s.length()) {
-                            isPartNumber = isPartNumber || isPartNumber(input, i, lineNumber - 1);
-                        }
-                    }
-                    if (startOfNumber != 0) {
-                        isPartNumber = isPartNumber || isPartNumber(input, startOfNumber - 1, lineNumber);
-                    }
-                    if (i < s.length()) {
-                        isPartNumber = isPartNumber || isPartNumber(input, i, lineNumber);
-                    }
-                    if (lineNumber != s.length() - 1) {
-                        if (startOfNumber != 0) {
-                            isPartNumber = isPartNumber || isPartNumber(input, startOfNumber - 1, lineNumber + 1);
-                        }
-                        for (int z = startOfNumber; z < i; z++) {
-                            isPartNumber = isPartNumber || isPartNumber(input, z, lineNumber + 1);
-                        }
-                        if (i < s.length()) {
-                            isPartNumber = isPartNumber || isPartNumber(input, i, lineNumber + 1);
+                    for (int x = startOfNumber - 1; x < i + 1; x++) {
+                        for (int y = lineNumber - 1; y <= lineNumber + 1; y++) {
+                            if (x >= 0 && x < s.length() && y >= 0 && y < input.length && !(y == lineNumber && (x >= startOfNumber && x < i))) {
+                                isPartNumber = isPartNumber || isPartNumber(input, x, y);
+                            }
                         }
                     }
                     if (isPartNumber) {
@@ -102,55 +81,13 @@ class Q03Part2 {
                     while (i < s.length() && s.charAt(i) <= 57 && s.charAt(i) >= 48) {
                         i++;
                     }
-                    if (lineNumber != 0) {
-                        if (startOfNumber != 0) {
-                            if (isPartNumber(input, startOfNumber - 1, lineNumber - 1)) {
-                                Point curP = new Point(startOfNumber - 1, lineNumber - 1);
-                                addNumberIfNotAlreadyPresent(adjacentNumbers, curP, startOfNumber, lineNumber);
-                            }
-                        }
-                        for (int z = startOfNumber; z < i; z++) {
-                            if (isPartNumber(input, z, lineNumber - 1)) {
-                                Point curP = new Point(z, lineNumber - 1);
-                                addNumberIfNotAlreadyPresent(adjacentNumbers, curP, startOfNumber, lineNumber);
-                            }
-                        }
-                        if (i < s.length()) {
-                            if (isPartNumber(input, i, lineNumber - 1)) {
-                                Point curP = new Point(i, lineNumber - 1);
-                                addNumberIfNotAlreadyPresent(adjacentNumbers, curP, startOfNumber, lineNumber);
-                            }
-                        }
-                    }
-                    if (startOfNumber != 0) {
-                        if (isPartNumber(input, startOfNumber - 1, lineNumber)) {
-                            Point curP = new Point(startOfNumber - 1, lineNumber);
-                            addNumberIfNotAlreadyPresent(adjacentNumbers, curP, startOfNumber, lineNumber);
-                        }
-                    }
-                    if (i < s.length()) {
-                        if (isPartNumber(input, i, lineNumber)) {
-                            Point curP = new Point(i, lineNumber);
-                            addNumberIfNotAlreadyPresent(adjacentNumbers, curP, startOfNumber, lineNumber);
-                        }
-                    }
-                    if (lineNumber != s.length() - 1) {
-                        if (startOfNumber != 0) {
-                            if (isPartNumber(input, startOfNumber - 1, lineNumber + 1)) {
-                                Point curP = new Point(startOfNumber - 1, lineNumber + 1);
-                                addNumberIfNotAlreadyPresent(adjacentNumbers, curP, startOfNumber, lineNumber);
-                            }
-                        }
-                        for (int z = startOfNumber; z < i; z++) {
-                            if (isPartNumber(input, z, lineNumber + 1)) {
-                                Point curP = new Point(z, lineNumber + 1);
-                                addNumberIfNotAlreadyPresent(adjacentNumbers, curP, startOfNumber, lineNumber);
-                            }
-                        }
-                        if (i < s.length()) {
-                            if (isPartNumber(input, i, lineNumber + 1)) {
-                                Point curP = new Point(i, lineNumber + 1);
-                                addNumberIfNotAlreadyPresent(adjacentNumbers, curP, startOfNumber, lineNumber);
+                    for (int x = startOfNumber - 1; x < i + 1; x++) {
+                        for (int y = lineNumber - 1; y <= lineNumber + 1; y++) {
+                            if (x >= 0 && x < s.length() && y >= 0 && y < input.length && !(y == lineNumber && (x >= startOfNumber && x < i))) {
+                                if (isPartNumber(input, x, y)) {
+                                    Point curP = new Point(x, y);
+                                    addNumberIfNotAlreadyPresent(adjacentNumbers, curP, startOfNumber, lineNumber);
+                                }
                             }
                         }
                     }
