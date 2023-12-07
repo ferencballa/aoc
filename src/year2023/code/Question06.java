@@ -30,6 +30,7 @@ class Q06Part1 {
             distances[i] = Integer.parseInt(input[1].split(" +")[i+1]);
         }
         int count = 1;
+        int countQuadratic = 1;
         for (int i = 0; i < 4; i++) {
             int countCur = 0;
             for (int a = 0; a <= times[i]; a++) {
@@ -39,8 +40,10 @@ class Q06Part1 {
                 }
             }
             count *= countCur;
+            countQuadratic *= ((long) Math.floor((times[i] + Math.sqrt(Math.pow(times[i], 2) - 4 * distances[i])) /2) + 1 - (long) Math.ceil((times[i] - Math.sqrt(Math.pow(times[i], 2) - 4 * distances[i])) /2));
         }
         System.out.println(count);
+        System.out.println(countQuadratic);
     }
 }
 
@@ -66,5 +69,6 @@ class Q06Part2 {
             }
         }
         System.out.println(count);
+        System.out.println(((long) Math.floor((time + Math.sqrt(Math.pow(time, 2) - 4 * distance)) /2) + 1 - (long) Math.ceil((time - Math.sqrt(Math.pow(time, 2) - 4 * distance)) /2)));
     }
 }
