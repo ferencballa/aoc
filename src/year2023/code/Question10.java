@@ -39,15 +39,32 @@ class Q10Part1 {
             }
         }
         int steps = 1;
-        int curX = startX + 1;
-        int curY = startY;
+        int curX = -1;
+        int curY = -1;
         /*
         0 = from up
         1 = from right
         2 = from down
         3 = from left
          */
-        int origin = 3;
+        int origin = -1;
+        if (grid[startX][startY-1] == '|' || grid[startX][startY-1] == '7' || grid[startX][startY-1] == 'F') {
+            curX = startX;
+            curY = startY - 1;
+            origin = 2;
+        } else if (grid[startX+1][startY] == '-' || grid[startX+1][startY] == 'J' || grid[startX+1][startY] == '7') {
+            curX = startX + 1;
+            curY = startY;
+            origin = 3;
+        } else if (grid[startX][startY+1] == '|' || grid[startX][startY+1] == 'L' || grid[startX][startY+1] == 'J') {
+            curX = startX;
+            curY = startY + 1;
+            origin = 0;
+        } else if (grid[startX-1][startY] == '-' || grid[startX-1][startY] == 'L' || grid[startX-1][startY] == 'F') {
+            curX = startX;
+            curY = startY - 1;
+            origin = 1;
+        }
         while (!(curX == startX && curY == startY)) {
             steps++;
             char curChar = grid[curX][curY];
@@ -127,58 +144,80 @@ class Q10Part2 {
                 }
             }
         }
-        int curX = startX + 1;
-        int curY = startY;
+        int curX = -1;
+        int curY = -1;
         /*
         0 = from up
         1 = from right
         2 = from down
         3 = from left
          */
-        int origin = 3;
+        int origin = -1;
+        if (grid[startX][startY-1] == '|' || grid[startX][startY-1] == '7' || grid[startX][startY-1] == 'F') {
+            curX = startX;
+            curY = startY - 1;
+            origin = 2;
+            if (grid[startX+1][startY] == '-' || grid[startX+1][startY] == 'J' || grid[startX+1][startY] == '7') {
+                grid[startX][startY] = 'L';
+            } else if (grid[startX][startY+1] == '|' || grid[startX][startY+1] == 'L' || grid[startX][startY+1] == 'J') {
+                grid[startX][startY] = '|';
+            } else if (grid[startX-1][startY] == '-' || grid[startX-1][startY] == 'L' || grid[startX-1][startY] == 'F') {
+                grid[startX][startY] = 'J';
+            }
+        } else if (grid[startX+1][startY] == '-' || grid[startX+1][startY] == 'J' || grid[startX+1][startY] == '7') {
+            curX = startX + 1;
+            curY = startY;
+            origin = 3;
+            if (grid[startX][startY-1] == '|' || grid[startX][startY-1] == '7' || grid[startX][startY-1] == 'F') {
+                grid[startX][startY] = 'L';
+            } else if (grid[startX][startY+1] == '|' || grid[startX][startY+1] == 'L' || grid[startX][startY+1] == 'J') {
+                grid[startX][startY] = 'F';
+            } else if (grid[startX-1][startY] == '-' || grid[startX-1][startY] == 'L' || grid[startX-1][startY] == 'F') {
+                grid[startX][startY] = '-';
+            }
+        } else if (grid[startX][startY+1] == '|' || grid[startX][startY+1] == 'L' || grid[startX][startY+1] == 'J') {
+            curX = startX;
+            curY = startY + 1;
+            origin = 0;
+            if (grid[startX][startY-1] == '|' || grid[startX][startY-1] == '7' || grid[startX][startY-1] == 'F') {
+                grid[startX][startY] = '|';
+            } else if (grid[startX+1][startY] == '-' || grid[startX+1][startY] == 'J' || grid[startX+1][startY] == '7') {
+                grid[startX][startY] = 'F';
+            } else if (grid[startX-1][startY] == '-' || grid[startX-1][startY] == 'L' || grid[startX-1][startY] == 'F') {
+                grid[startX][startY] = '7';
+            }
+        } else if (grid[startX-1][startY] == '-' || grid[startX-1][startY] == 'L' || grid[startX-1][startY] == 'F') {
+            curX = startX;
+            curY = startY - 1;
+            origin = 1;
+            if (grid[startX][startY-1] == '|' || grid[startX][startY-1] == '7' || grid[startX][startY-1] == 'F') {
+                grid[startX][startY] = 'J';
+            } else if (grid[startX+1][startY] == '-' || grid[startX+1][startY] == 'J' || grid[startX+1][startY] == '7') {
+                grid[startX][startY] = '-';
+            } else if (grid[startX][startY+1] == '|' || grid[startX][startY+1] == 'L' || grid[startX][startY+1] == 'J') {
+                grid[startX][startY] = '7';
+            }
+        }
         boolean[][] secondGrid = new boolean[input[0].length()][];
         for (int i = 0; i < input[0].length(); i++) {
             secondGrid[i] = new boolean[input.length];
         }
-        /*
-        0 = from up
-        1 = from right
-        2 = from down
-        3 = from left
-
-        4 = from up right
-        5 = from down right
-        6 = from down left
-        7 = from up left
-         */
-        int[][] insideDirections = new int[input[0].length()][];
-        for (int i = 0; i < input[0].length(); i++) {
-            insideDirections[i] = new int[input.length];
-        }
         secondGrid[startX][startY] = true;
-        insideDirections[startX][startY] = 4;
-        int prevDirectionInside = 4;
-        char prevChar = 'L';
         while (!(curX == startX && curY == startY)) {
             secondGrid[curX][curY] = true;
             char curChar = grid[curX][curY];
             if (curChar == '|') {
                 if (origin == 0) {
-                    if (prevChar == '|' && prevDirectionInside == 3) {
-
-                    }
                     curY++;
                 } else {
                     curY--;
                 }
-                prevChar = '|';
             } else if (curChar == '-') {
                 if (origin == 3) {
                     curX++;
                 } else {
                     curX--;
                 }
-                prevChar = '-';
             } else if (curChar == 'L') {
                 if (origin == 0) {
                     curX++;
@@ -187,7 +226,6 @@ class Q10Part2 {
                     curY--;
                     origin = 2;
                 }
-                prevChar = 'L';
             } else if (curChar == 'J') {
                 if (origin == 0) {
                     curX--;
@@ -196,7 +234,6 @@ class Q10Part2 {
                     curY--;
                     origin = 2;
                 }
-                prevChar = 'J';
             } else if (curChar == '7') {
                 if (origin == 2) {
                     curX--;
@@ -225,29 +262,17 @@ class Q10Part2 {
         for (int y = 0; y < input.length; y++) {
             for (int x = 0; x < input[y].length(); x++) {
                 if (secondGrid[x][y]) {
-                    if (grid[x][y] == 'S') {
-                        gridOnlyLine[x][y] = 'L';
-                    } else {
-                        gridOnlyLine[x][y] = grid[x][y];
-                    }
-                    //System.out.print(grid[x][y]);
+                    gridOnlyLine[x][y] = grid[x][y];
                 } else {
                     gridOnlyLine[x][y] = '.';
-                    //System.out.print(".");
                 }
             }
-            //System.out.print("\n");
         }
         int count = 0;
         for (int y = 0; y < input.length; y++) {
             boolean inside = false;
             boolean prevF = false;
             for (int x = 0; x < input[y].length(); x++) {
-                if (gridOnlyLine[x][y] == '.' && inside) {
-                    System.out.print('X');
-                } else {
-                    System.out.print(gridOnlyLine[x][y]);
-                }
                 if (gridOnlyLine[x][y] != '-') {
                     if (gridOnlyLine[x][y] == 'F') {
                         inside = !inside;
@@ -268,7 +293,6 @@ class Q10Part2 {
                     }
                 }
             }
-            System.out.print("\n");
         }
         System.out.println(count);
     }
