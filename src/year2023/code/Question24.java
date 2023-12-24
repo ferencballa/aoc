@@ -117,7 +117,7 @@ class Q24Part2 {
                 if (pointsAndVels[i][3] == pointsAndVels[j][3]) {
                     Set<Double> possibleSpeeds = new HashSet<>();
                     for (int s = -1000; s < 1000; s++) {
-                        if ((pointsAndVels[i][0] - pointsAndVels[j][0]) % (s - pointsAndVels[i][3]) == 0) {
+                        if ((pointsAndVels[i][0] - pointsAndVels[j][0]) == 0 || (pointsAndVels[i][0] - pointsAndVels[j][0]) % (s - pointsAndVels[i][3]) == 0) {
                             possibleSpeeds.add((double) s);
                         }
                     }
@@ -137,7 +137,7 @@ class Q24Part2 {
                 if (pointsAndVels[i][4] == pointsAndVels[j][4]) {
                     Set<Double> possibleSpeeds = new HashSet<>();
                     for (int s = -1000; s < 1000; s++) {
-                        if ((pointsAndVels[i][1] - pointsAndVels[j][1]) % (s - pointsAndVels[i][4]) == 0) {
+                        if ((pointsAndVels[i][1] - pointsAndVels[j][1]) == 0 || (pointsAndVels[i][1] - pointsAndVels[j][1]) % (s - pointsAndVels[i][4]) == 0) {
                             possibleSpeeds.add((double) s);
                         }
                     }
@@ -157,7 +157,11 @@ class Q24Part2 {
                 if (pointsAndVels[i][5] == pointsAndVels[j][5]) {
                     Set<Double> possibleSpeeds = new HashSet<>();
                     for (int s = -1000; s < 1000; s++) {
-                        if ((pointsAndVels[i][2] - pointsAndVels[j][2]) % (s - pointsAndVels[i][5]) == 0) {
+                        int dummy = 0;
+                        if (s == 168) {
+                            dummy = 3;
+                        }
+                        if ((pointsAndVels[i][2] - pointsAndVels[j][2]) == 0 || (pointsAndVels[i][2] - pointsAndVels[j][2]) % (s - pointsAndVels[i][5]) == 0) {
                             possibleSpeeds.add((double) s);
                         }
                     }
@@ -166,44 +170,53 @@ class Q24Part2 {
             }
         }
         Set<Double> zSpeedSet = possibleZRockSpeeds.get(0);
-        for (int i = 1; i < 30/*possibleZRockSpeeds.size()*/; i++) { //no idea why, but set 33 (i=32) breaks the code. I don't feel like finding out why, ignoring the set gives the correct answer.
+        for (int i = 1; i < possibleZRockSpeeds.size(); i++) {
             zSpeedSet.retainAll(possibleZRockSpeeds.get(i));
-            if (zSpeedSet.isEmpty()) {
-                System.out.println("Something went wrong");
-            }
         }
         double kzvr = (double) zSpeedSet.toArray()[0];
         /*
+        k = known (constant, not variable)
+        u = unknown (variable, not constant)
+        k and u were useful for keeping track which value had to be solved for
         uxpr + ut1 * kxvr = kxp1 + ut1 * kxv1
-        uypr + ut1 * kyvr = kyp1 + ut1 * kxv1
-        uzpr + ut1 * kzvr = kzp1 + ut1 * kxv1
+        uypr + ut1 * kyvr = kyp1 + ut1 * kyv1
+        uzpr + ut1 * kzvr = kzp1 + ut1 * kzv1
 
         uxpr + ut2 * kxvr = kxp2 + ut2 * kxv2
-        uypr + ut2 * kyvr = kyp2 + ut2 * kxv2
-        uzpr + ut2 * kzvr = kzp2 + ut2 * kxv2
+        uypr + ut2 * kyvr = kyp2 + ut2 * kyv2
+        uzpr + ut2 * kzvr = kzp2 + ut2 * kzv2
 
-        uxpr = kxp1 + ut1 * (kxv1 - kxvr)
-        uypr = kyp1 + ut1 * (kyv1 - kyvr)
-        uzpr = kzp1 + ut1 * (kzv1 - kzvr)
+        ut1 * kxvr - ut1 * kxv1 = kxp1 - uxpr
+        ut1 * (kxvr - kxv1) = kxp1 - uxpr
+        ut1 = (kxp1 - uxpr) / (kxvr - kxv1)
+        ut2 = (kxp2 - uxpr) / (kxvr - kxv2)
 
-        uxpr = kxp2 + ut2 * (kxv2 - kxvr)
-        uypr = kyp2 + ut2 * (kyv2 - kyvr)
-        uzpr = kzp2 + ut2 * (kzv2 - kzvr)
+        uypr + ((kxp1 - uxpr) / (kxvr - kxv1)) * kyvr = kyp1 + ((kxp1 - uxpr) / (kxvr - kxv1)) * kyv1
+        uzpr + ((kxp1 - uxpr) / (kxvr - kxv1)) * kzvr = kzp1 + ((kxp1 - uxpr) / (kxvr - kxv1)) * kzv1
+        uypr + ((kxp2 - uxpr) / (kxvr - kxv2)) * kyvr = kyp2 + ((kxp2 - uxpr) / (kxvr - kxv2)) * kyv2
+        uzpr + ((kxp2 - uxpr) / (kxvr - kxv2)) * kzvr = kzp2 + ((kxp2 - uxpr) / (kxvr - kxv2)) * kzv2
 
-        kxp1 + ut1 * (kxv1 - kxvr) = kxp2 + ut2 * (kxv2 - kxvr)
-        kyp1 + ut1 * (kyv1 - kyvr) = kyp2 + ut2 * (kyv2 - kyvr)
-        ut1 = (kyp2 + ut2 * (kyv2 - kyvr) - kyp1) / (kyv1 - kyvr)
+        uypr + ((kxp1 - uxpr) / (kxvr - kxv1)) * kyvr = kyp1 + ((kxp1 - uxpr) / (kxvr - kxv1)) * kyv1
+        uypr + ((kxp2 - uxpr) / (kxvr - kxv2)) * kyvr = kyp2 + ((kxp2 - uxpr) / (kxvr - kxv2)) * kyv2
 
-        kyp1 + ((kyp2 + ut2 * (kyv2 - kyvr) - kyp1) / (kyv1 - kyvr)) * (kyv1 - kyvr) = kyp2 + ut2 * (kyv2 - kyvr)
-        ((kyp2 + ut2 * (kyv2 - kyvr) - kyp1) / (kyv1 - kyvr)) * (kyv1 - kyvr) - ut2 * (kyv2 - kyvr) = kyp2 - kyp1
-        (kyp2 + ut2 * (kyv2 - kyvr) - kyp1) * ((kyv1 - kyvr) / (kyv1 - kyvr)) - ut2 * (kyv2 - kyvr) = kyp2 - kyp1
-        kyp2 * ((kyv1 - kyvr) / (kyv1 - kyvr)) + ut2 * (kyv2 - kyvr) * ((kyv1 - kyvr) / (kyv1 - kyvr)) - kyp1 * ((kyv1 - kyvr) / (kyv1 - kyvr)) - ut2 * (kyv2 - kyvr) = kyp2 - kyp1
-        ut2 * (kyv2 - kyvr) * ((kyv1 - kyvr) / (kyv1 - kyvr)) - ut2 * (kyv2 - kyvr) = kyp2 - kyp1 - kyp2 * ((kyv1 - kyvr) / (kyv1 - kyvr)) + kyp1 * ((kyv1 - kyvr) / (kyv1 - kyvr))
-        ut2 = (kyp2 - kyp1 - kyp2 * ((kyv1 - kyvr) / (kyv1 - kyvr)) + kyp1 * ((kyv1 - kyvr) / (kyv1 - kyvr))) / (((kyv2 - kyvr) * ((kyv1 - kyvr) / (kyv1 - kyvr))) - (kyv2 - kyvr))
+        uypr  = kyp1 + ((kxp1 - uxpr) / (kxvr - kxv1)) * kyv1 - ((kxp1 - uxpr) / (kxvr - kxv1)) * kyvr
 
-        uxpr = kxp2 + (kyp2 - kyp1 - kyp2 * ((kyv1 - kyvr) / (kyv1 - kyvr)) + kyp1 * ((kyv1 - kyvr) / (kyv1 - kyvr))) / (((kyv2 - kyvr) * ((kyv1 - kyvr) / (kyv1 - kyvr))) - (kyv2 - kyvr)) * (kxv2 - kxvr)
-        uypr = kyp2 + (kyp2 - kyp1 - kyp2 * ((kyv1 - kyvr) / (kyv1 - kyvr)) + kyp1 * ((kyv1 - kyvr) / (kyv1 - kyvr))) / (((kyv2 - kyvr) * ((kyv1 - kyvr) / (kyv1 - kyvr))) - (kyv2 - kyvr)) * (kyv2 - kyvr)
-        uzpr = kzp2 + (kyp2 - kyp1 - kyp2 * ((kyv1 - kyvr) / (kyv1 - kyvr)) + kyp1 * ((kyv1 - kyvr) / (kyv1 - kyvr))) / (((kyv2 - kyvr) * ((kyv1 - kyvr) / (kyv1 - kyvr))) - (kyv2 - kyvr)) * (kzv2 - kzvr)
+        kyp1 + ((kxp1 - uxpr) / (kxvr - kxv1)) * kyv1 - ((kxp1 - uxpr) / (kxvr - kxv1)) * kyvr + ((kxp2 - uxpr) / (kxvr - kxv2)) * kyvr = kyp2 + ((kxp2 - uxpr) / (kxvr - kxv2)) * kyv2
+
+        ((kxp1 - uxpr) / (kxvr - kxv1)) * kyv1 - ((kxp1 - uxpr) / (kxvr - kxv1)) * kyvr + ((kxp2 - uxpr) / (kxvr - kxv2)) * kyvr - ((kxp2 - uxpr) / (kxvr - kxv2)) * kyv2 = kyp2 - kyp1
+
+        kxp1 * kyv1 / (kxvr - kxv1) - uxpr * kyv1 / (kxvr - kxv1) + uxpr * kyvr / (kxvr - kxv1) - kxp1 * kyvr / (kxvr - kxv1) - uxpr * kyvr / (kxvr - kxv2) + kxp2 * kyvr / (kxvr - kxv2) + uxpr * kyv2 / (kxvr - kxv2) - kxp2 * kyv2 / (kxvr - kxv2) = kyp2 - kyp1
+
+        uxpr * kyvr / (kxvr - kxv1) - uxpr * kyv1 / (kxvr - kxv1) - uxpr * kyvr / (kxvr - kxv2) + uxpr * kyv2 / (kxvr - kxv2) = kyp2 - kyp1 - kxp1 * kyv1 / (kxvr - kxv1) + kxp1 * kyvr / (kxvr - kxv1) - kxp2 * kyvr / (kxvr - kxv2) + kxp2 * kyv2 / (kxvr - kxv2)
+
+        uxpr * (kyvr / (kxvr - kxv1) - kyv1 / (kxvr - kxv1) - kyvr / (kxvr - kxv2) + kyv2 / (kxvr - kxv2)) = kyp2 - kyp1 - kxp1 * kyv1 / (kxvr - kxv1) + kxp1 * kyvr / (kxvr - kxv1) - kxp2 * kyvr / (kxvr - kxv2) + kxp2 * kyv2 / (kxvr - kxv2)
+
+        uxpr = (kyp2 - kyp1 - kxp1 * kyv1 / (kxvr - kxv1) + kxp1 * kyvr / (kxvr - kxv1) - kxp2 * kyvr / (kxvr - kxv2) + kxp2 * kyv2 / (kxvr - kxv2)) / (kyvr / (kxvr - kxv1) - kyv1 / (kxvr - kxv1) - kyvr / (kxvr - kxv2) + kyv2 / (kxvr - kxv2))
+
+        uzpr + ((kxp1 - uxpr) / (kxvr - kxv1)) * kzvr = kzp1 + ((kxp1 - uxpr) / (kxvr - kxv1)) * kzv1
+        uzpr + ((kxp2 - uxpr) / (kxvr - kxv2)) * kzvr = kzp2 + ((kxp2 - uxpr) / (kxvr - kxv2)) * kzv2
+
+        uzpr = kzp1 + ((kxp1 - uxpr) / (kxvr - kxv1)) * kzv1 - ((kxp1 - uxpr) / (kxvr - kxv1)) * kzvr
          */
         double kxp1 = pointsAndVels[0][0];
         double kyp1 = pointsAndVels[0][1];
@@ -217,22 +230,10 @@ class Q24Part2 {
         double kxv2 = pointsAndVels[1][3];
         double kyv2 = pointsAndVels[1][4];
         double kzv2 = pointsAndVels[1][5];
-        /*double uxpr = kxp2 + (kyp2 - kyp1 - kyp2 * ((kyv1 - kyvr) / (kyv1 - kyvr)) + kyp1 * ((kyv1 - kyvr) / (kyv1 - kyvr))) / (((kyv2 - kyvr) * ((kyv1 - kyvr) / (kyv1 - kyvr))) - (kyv2 - kyvr)) * (kxv2 - kxvr);
-        double uypr = kyp2 + (kyp2 - kyp1 - kyp2 * ((kyv1 - kyvr) / (kyv1 - kyvr)) + kyp1 * ((kyv1 - kyvr) / (kyv1 - kyvr))) / (((kyv2 - kyvr) * ((kyv1 - kyvr) / (kyv1 - kyvr))) - (kyv2 - kyvr)) * (kyv2 - kyvr);
-        double uzpr = kzp2 + (kyp2 - kyp1 - kyp2 * ((kyv1 - kyvr) / (kyv1 - kyvr)) + kyp1 * ((kyv1 - kyvr) / (kyv1 - kyvr))) / (((kyv2 - kyvr) * ((kyv1 - kyvr) / (kyv1 - kyvr))) - (kyv2 - kyvr)) * (kzv2 - kzvr);*/
-        double uxpr = kxp2 + (kyp2 - kyp1 - kyp2 + kyp1) / (0.0) * (kxv2 - kxvr);
-        double uypr = kyp2 + (kyp2 - kyp1 - kyp2 + kyp1) / (0.0) * (kyv2 - kyvr);
-        double uzpr = kzp2 + (kyp2 - kyp1 - kyp2 + kyp1) / (0.0) * (kzv2 - kzvr);
-        System.out.println(uxpr + uypr + uzpr);
-        /*something went wrong in writing out the equations by hand. plugging in the values in these formulas:
-        uxpr + ut1 * kxvr = kxp1 + ut1 * kxv1
-        uypr + ut1 * kyvr = kyp1 + ut1 * kyv1
-        uzpr + ut1 * kzvr = kzp1 + ut1 * kzv1
 
-        uxpr + ut2 * kxvr = kxp2 + ut2 * kxv2
-        uypr + ut2 * kyvr = kyp2 + ut2 * kyv2
-        uzpr + ut2 * kzvr = kzp2 + ut2 * kzv2
-        in a matrix calculator gives the correct values for uxpr, uypr and uzpr. I'm done for today.
-         */
+        double uxpr = (kyp2 - kyp1 - kxp1 * kyv1 / (kxvr - kxv1) + kxp1 * kyvr / (kxvr - kxv1) - kxp2 * kyvr / (kxvr - kxv2) + kxp2 * kyv2 / (kxvr - kxv2)) / (kyvr / (kxvr - kxv1) - kyv1 / (kxvr - kxv1) - kyvr / (kxvr - kxv2) + kyv2 / (kxvr - kxv2));
+        double uypr  = kyp1 + ((kxp1 - uxpr) / (kxvr - kxv1)) * kyv1 - ((kxp1 - uxpr) / (kxvr - kxv1)) * kyvr;
+        double uzpr = kzp1 + ((kxp1 - uxpr) / (kxvr - kxv1)) * kzv1 - ((kxp1 - uxpr) / (kxvr - kxv1)) * kzvr;
+        System.out.printf("%.0f", uxpr + uypr + uzpr);
     }
 }
