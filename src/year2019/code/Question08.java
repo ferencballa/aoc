@@ -13,7 +13,7 @@ public class Question08 {
     }
 
     private static void part1(String[] input) {
-        int[] pixels = Helper.StringArrayToInt(input[0].split(""));
+        int[] pixels = Helper.StringArrayToIntArray(input[0].split(""));
         int numOfLayers = pixels.length / 150;
         int fewest0 = Integer.MAX_VALUE;
         int mult = 0;
@@ -40,7 +40,7 @@ public class Question08 {
     }
 
     private static void part2(String[] input) {
-        int[] pixels = Helper.StringArrayToInt(input[0].split(""));
+        int[] pixels = Helper.StringArrayToIntArray(input[0].split(""));
         int numOfLayers = pixels.length / 150;
         int[] visPix = new int[150];
         for (int i = 0; i < 150; i++) {

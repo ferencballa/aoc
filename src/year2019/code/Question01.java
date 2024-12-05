@@ -14,7 +14,7 @@ public class Question01 {
     }
 
     private static void part1(String[] input) {
-        int[] values = Helper.StringArrayToInt(input);
+        int[] values = Helper.StringArrayToIntArray(input);
         int total = 0;
         for (int val : values) {
             total += Math.floorDiv(val, 3) -2;
@@ -23,7 +23,7 @@ public class Question01 {
     }
 
     private static void part2(String[] input) {
-        int[] values = Helper.StringArrayToInt(input);
+        int[] values = Helper.StringArrayToIntArray(input);
         int total = 0;
         for (int val : values) {
             while (val > 0) {

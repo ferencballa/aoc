@@ -26,7 +26,7 @@ class Q08Part1 {
         String[] input = Question08.getInput();
         int[][] inp = new int[input.length][];
         for (int i = 0; i < input.length; i++) {
-            inp[i] = Helper.StringArrayToInt(input[i].split(""));
+            inp[i] = Helper.StringArrayToIntArray(input[i].split(""));
         }
         int visible = 0;
         HashMap<Integer, HashMap<Integer, Boolean>> visiblePoints = new HashMap<>();
@@ -116,7 +116,7 @@ class Q08Part2 {
         String[] input = Question08.getInput();
         int[][] inp = new int[input.length][];
         for (int i = 0; i < input.length; i++) {
-            inp[i] = Helper.StringArrayToInt(input[i].split(""));
+            inp[i] = Helper.StringArrayToIntArray(input[i].split(""));
         }
         int bestScenicScore = 0;
         for (int i = 0; i < inp.length; i++) {

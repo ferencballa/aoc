@@ -15,7 +15,7 @@ public class Question16 {
 
     private static void part1(String[] input) {
         int[] basePattern = {0, 1, 0, -1};
-        int[] currentList = Helper.StringArrayToInt(input[0].split(""));
+        int[] currentList = Helper.StringArrayToIntArray(input[0].split(""));
         for (int numberOfPhases = 0; numberOfPhases < 100; numberOfPhases++) {
             int[] newList = new int[currentList.length];
             for (int i = 0; i < currentList.length; i++) {
@@ -45,7 +45,7 @@ public class Question16 {
     }
 
     private static void part2(String[] input) {
-        int[] currentListShort = Helper.StringArrayToInt(input[0].split(""));
+        int[] currentListShort = Helper.StringArrayToIntArray(input[0].split(""));
         int offset = 0;
         for (int i = 0; i < 7; i++) {
             offset += currentListShort[i] * Math.pow(10, 6-i);

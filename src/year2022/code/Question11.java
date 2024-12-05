@@ -29,7 +29,7 @@ class Q11Part1 {
         for (int i = 0; i < input.length; i+= 7) {
             String[] itemParts = input[i+1].split(": ");
             String[] items = itemParts[1].trim().split(", ");
-            int[] itemNumsInt = Helper.StringArrayToInt(items);
+            int[] itemNumsInt = Helper.StringArrayToIntArray(items);
             long[] itemNums = new long[itemNumsInt.length];
             for (int in =0; in < itemNums.length; in++) {
                 itemNums[in] = (long) itemNumsInt[in];
@@ -116,7 +116,7 @@ class Q11Part2 {
         for (int i = 0; i < input.length; i+= 7) {
             String[] itemParts = input[i+1].split(": ");
             String[] items = itemParts[1].trim().split(", ");
-            int[] itemNumsInt = Helper.StringArrayToInt(items);
+            int[] itemNumsInt = Helper.StringArrayToIntArray(items);
             long[] itemNums = new long[itemNumsInt.length];
             for (int in =0; in < itemNums.length; in++) {
                 itemNums[in] = itemNumsInt[in];

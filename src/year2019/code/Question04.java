@@ -14,7 +14,7 @@ public class Question04 {
 
     private static void part1(String[] input) {
         String[] values = input[0].split("-");
-        int[] bounds = Helper.StringArrayToInt(values);
+        int[] bounds = Helper.StringArrayToIntArray(values);
         int count = 0;
         for (int i = bounds[0]; i <= bounds[1]; i++) {
             int d1 = Math.floorDiv(i, 100000);
@@ -33,7 +33,7 @@ public class Question04 {
 
     private static void part2(String[] input) {
         String[] values = input[0].split("-");
-        int[] bounds = Helper.StringArrayToInt(values);
+        int[] bounds = Helper.StringArrayToIntArray(values);
         int count = 0;
         for (int i = bounds[0]; i <= bounds[1]; i++) {
             int d1 = Math.floorDiv(i, 100000);

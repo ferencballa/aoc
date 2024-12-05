@@ -14,7 +14,7 @@ public class Question05 {
 
     private static void part1(String[] input) {
         String[] stringValues = input[0].split(",");
-        int[] values = Helper.StringArrayToInt(stringValues);
+        int[] values = Helper.StringArrayToIntArray(stringValues);
         int curPos = 0;
         while (values[curPos] - Math.floorDiv(values[curPos], 100) * 100 != 99) {
             int curValue = values[curPos];
@@ -56,7 +56,7 @@ public class Question05 {
 
     private static void part2(String[] input) {
         String[] stringValues = input[0].split(",");
-        int[] values = Helper.StringArrayToInt(stringValues);
+        int[] values = Helper.StringArrayToIntArray(stringValues);
         int curPos = 0;
         while (values[curPos] - Math.floorDiv(values[curPos], 100) * 100 != 99) {
             int curValue = values[curPos];

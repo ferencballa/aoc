@@ -15,13 +15,13 @@ public class Question04 {
 
     private static void part1(String[] input) {
         String[] calledStr = input[0].split(",");
-        int[] called = Helper.StringArrayToInt(calledStr);
+        int[] called = Helper.StringArrayToIntArray(calledStr);
         ArrayList<int[][]> cards = new ArrayList<>();
         for (int i = 2; i < input.length; i += 6) {
             int[][] card = new int[5][];
             for (int j = 0; j < 5; j++) {
                 String[] line = input[i + j].trim().split(" +");
-                card[j] = Helper.StringArrayToInt(line);
+                card[j] = Helper.StringArrayToIntArray(line);
             }
             cards.add(card);
         }
@@ -72,13 +72,13 @@ public class Question04 {
         boolean[] bingoedCards = new boolean[100];
         int bingoedCardsCount = 0;
         String[] calledStr = input[0].split(",");
-        int[] called = Helper.StringArrayToInt(calledStr);
+        int[] called = Helper.StringArrayToIntArray(calledStr);
         ArrayList<int[][]> cards = new ArrayList<>();
         for (int i = 2; i < input.length; i += 6) {
             int[][] card = new int[5][];
             for (int j = 0; j < 5; j++) {
                 String[] line = input[i + j].trim().split(" +");
-                card[j] = Helper.StringArrayToInt(line);
+                card[j] = Helper.StringArrayToIntArray(line);
             }
             cards.add(card);
         }

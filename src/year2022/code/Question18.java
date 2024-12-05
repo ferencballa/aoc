@@ -29,7 +29,7 @@ class Q18Part1 {
         HashSet<String> cubes = new HashSet<>(Arrays.asList(input));
         int surfArea = 0;
         for (String cube : input) {
-            int[] coors = Helper.StringArrayToInt(cube.split(","));
+            int[] coors = Helper.StringArrayToIntArray(cube.split(","));
             if (!cubes.contains((coors[0] - 1) + "," + coors[1] + "," + coors[2])) {
                 surfArea++;
             }
@@ -71,7 +71,7 @@ class Q18Part2 {
         String[] input = Question18.getInput();
         for (String cube : input) {
             cubes.add(cube);
-            int[] coors = Helper.StringArrayToInt(cube.split(","));
+            int[] coors = Helper.StringArrayToIntArray(cube.split(","));
             highestX = Math.max(highestX, coors[0]);
             lowestX = Math.min(lowestX, coors[0]);
             highestY = Math.max(highestY, coors[1]);
@@ -81,7 +81,7 @@ class Q18Part2 {
         }
         int surfArea = 0;
         for (String cube : input) {
-            int[] inpCoors = Helper.StringArrayToInt(cube.split(","));
+            int[] inpCoors = Helper.StringArrayToIntArray(cube.split(","));
             ArrayList<String> startCoors = new ArrayList<>();
             startCoors.add((inpCoors[0] - 1) + "," + inpCoors[1] + "," + inpCoors[2]);
             startCoors.add((inpCoors[0] + 1) + "," + inpCoors[1] + "," + inpCoors[2]);
@@ -103,7 +103,7 @@ class Q18Part2 {
             return false;
         } else {
             visited.add(pos);
-            int[] coors = Helper.StringArrayToInt(pos.split(","));
+            int[] coors = Helper.StringArrayToIntArray(pos.split(","));
             if (coors[0] >= highestX || coors[0] <= lowestX || coors[1] >= highestY || coors[1] <= lowestY || coors[2] >= highestZ || coors[2] <= lowestZ) {
                 return true;
             } else {

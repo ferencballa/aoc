@@ -17,7 +17,7 @@ public class Question07 {
     private static void part1(String[] input) {
         String[] stringValues = input[0].split(",");
         ArrayList<int[]> phaseSettings = new ArrayList<>();
-        int[] values = Helper.StringArrayToInt(stringValues);
+        int[] values = Helper.StringArrayToIntArray(stringValues);
         int[] phaseValues = {0, 1, 2, 3, 4};
         createPermutations(phaseValues, 5, phaseSettings);
         int maxSignal = 0;
@@ -33,7 +33,7 @@ public class Question07 {
 
     private static void part2(String[] input) {
         String[] stringValues = input[0].split(",");
-        int[] values = Helper.StringArrayToInt(stringValues);
+        int[] values = Helper.StringArrayToIntArray(stringValues);
         ArrayList<int[]> phaseSettings = new ArrayList<>();
         int[] phaseValues = {5, 6, 7, 8, 9};
         createPermutations(phaseValues, 5, phaseSettings);

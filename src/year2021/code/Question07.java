@@ -6,7 +6,7 @@ import java.io.IOException;
 public class Question07 {
     public static void main(String[] args) throws IOException {
         String[] inp = Helper.getInputForYearAndTask(2021, 7);
-        int[] input = Helper.StringArrayToInt(inp[0].split(","));
+        int[] input = Helper.StringArrayToIntArray(inp[0].split(","));
         System.out.println("Part 1:");
         part1(input);
         System.out.println("Part 2:");

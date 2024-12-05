@@ -3,8 +3,6 @@ import helpers.Helper;
 import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -15,7 +13,7 @@ public class Question16 {
     public static void main(String[] args) throws IOException {
         String[] in = Helper.getInputForYearAndTask(2021, 16);
         String binary = new BigInteger(in[0], 16).toString(2);
-        input = Helper.StringArrayToInt((new String(new char[in[0].length() * 4 - binary.length()]).replace('\0', '0') + binary).split(""));
+        input = Helper.StringArrayToIntArray((new String(new char[in[0].length() * 4 - binary.length()]).replace('\0', '0') + binary).split(""));
         System.out.println("Part 1:");
         part1();
         System.out.println("Part 2:");

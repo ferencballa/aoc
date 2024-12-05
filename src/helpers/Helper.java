@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 public class Helper {
-    public static int[] StringArrayToInt(String[] input) {
+    public static int[] StringArrayToIntArray(String[] input) {
         int[] values = new int[input.length];
         for (int i = 0; i < input.length; i++) {
             values[i] = Integer.parseInt(input[i]);

@@ -15,7 +15,7 @@ public class Question02 {
 
     private static void part1(String[] input) {
         String[] stringValues = input[0].split(",");
-        int[] values = Helper.StringArrayToInt(stringValues);
+        int[] values = Helper.StringArrayToIntArray(stringValues);
         values[1] = 12;
         values[2] = 2;
         int curPos = 0;
@@ -34,7 +34,7 @@ public class Question02 {
 
     private static void part2(String[] input) {
         String[] stringValues = input[0].split(",");
-        int[] vals = Helper.StringArrayToInt(stringValues);
+        int[] vals = Helper.StringArrayToIntArray(stringValues);
         int noun = -1;
         int verb = -1;
         totalLoop:

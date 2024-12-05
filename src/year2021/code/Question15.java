@@ -2,8 +2,6 @@ package year2021.code;
 import helpers.Helper;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,7 +11,7 @@ public class Question15 {
         String[] input = Helper.getInputForYearAndTask(2021, 15);
         int[][] distances = new int[input.length][input[0].length()];
         for (int i = 0; i < input.length; i++) {
-            distances[i] = Helper.StringArrayToInt(input[i].split(""));
+            distances[i] = Helper.StringArrayToIntArray(input[i].split(""));
         }
         System.out.println("Part 1:");
         part1(distances);
