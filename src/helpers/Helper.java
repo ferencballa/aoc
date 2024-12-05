@@ -27,6 +27,7 @@ public class Helper {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             String session_token = Files.readAllLines(Path.of("../aoc_session_token.txt")).toArray(new String[0])[0];
             con.setRequestProperty("Cookie", "session=" + session_token);
+            con.setRequestProperty("User-Agent", "https://github.com/ferencballa/aoc by f.balla.contact@gmail.com");
             con.setRequestMethod("GET");
             int status = con.getResponseCode();
             Reader streamReader;
