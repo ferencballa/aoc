@@ -18,6 +18,20 @@ public class Helper {
         }
         return values;
     }
+    public static long[] StringArrayToLongArray(String[] input) {
+        long[] values = new long[input.length];
+        for (int i = 0; i < input.length; i++) {
+            values[i] = Long.parseLong(input[i]);
+        }
+        return values;
+    }
+    public static ArrayList<Long> StringArrayToLongArrayList(String[] input) {
+        ArrayList<Long> values = new ArrayList<>();
+        for (String s : input) {
+            values.add(Long.parseLong(s));
+        }
+        return values;
+    }
 
     public static String[] getInputForYearAndTask(int year, int day) throws IOException {
         String dayString = day < 10 ? "0" + day : "" + day;
