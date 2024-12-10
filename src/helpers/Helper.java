@@ -18,6 +18,13 @@ public class Helper {
         }
         return values;
     }
+    public static int[] StringToIntArray(String input) {
+        int[] values = new int[input.length()];
+        for (int i = 0; i < input.length(); i++) {
+            values[i] = input.charAt(i) - 48;
+        }
+        return values;
+    }
     public static long[] StringArrayToLongArray(String[] input) {
         long[] values = new long[input.length];
         for (int i = 0; i < input.length; i++) {
