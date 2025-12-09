@@ -2,6 +2,7 @@ package helpers;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.awt.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -18,6 +19,7 @@ public class Helper {
         }
         return values;
     }
+
     public static int[] StringToIntArray(String input) {
         int[] values = new int[input.length()];
         for (int i = 0; i < input.length(); i++) {
@@ -38,6 +40,11 @@ public class Helper {
             values.add(Long.parseLong(s));
         }
         return values;
+    }
+
+    public static Point StringToPoint(String s, String delimiter) {
+        String[] values = s.split(delimiter);
+        return new Point(Integer.parseInt(values[0]), Integer.parseInt(values[1]));
     }
 
     public static String[] getInputForYearAndTask(int year, int day) throws IOException {
